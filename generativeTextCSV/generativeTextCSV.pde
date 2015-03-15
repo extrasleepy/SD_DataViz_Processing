@@ -25,10 +25,10 @@ String[] punctuation = {
 };
 
 Table table;
-float ptimeData;
+float ptime;
 
 void setup() {
-  table = loadTable("light.csv", "header");    //make sure to change name to match your data file
+  table = loadTable("light.csv");    //make sure to change name to match your data file
   println(table.getRowCount() + " total rows in table"); 
 
   size(1200, 600);
@@ -36,28 +36,26 @@ void setup() {
   textSize(25);
 
   for (TableRow row : table.rows ()) {
-    float timeData = row.getInt("Time");
-    float lightData = row.getInt("Light");
+    float time = row.getFloat(0);
+    float sensor = row.getFloat(1);
 
-    println(timeData, " ", lightData);
+    println(time, " ", sensor);
 
-    if ((timeData > ptimeData+5) || (timeData < ptimeData-5)) {
-      fill(150, timeData*4, 255);
-      text(articles[(int)map(lightData, 200, 1000, 0, articles.length)]+" "+
-        nouns[(int)map(lightData, 200, 1000, 0, nouns.length)]+" "+
-        action[(int)map(lightData, 200, 1000, 0, action.length)]+" "+
-        verb[(int)map(lightData, 200, 1000, 0, verb.length)]+" "+
-        location[(int)map(lightData, 200, 1000, 0, location.length)]+" "+
-        articles[(int)map(lightData, 200, 1000, 0, articles.length)]+" "+
-        nouns2[(int)map(lightData, 200, 1000, 0, nouns2.length)]+" "+
-        frequency[(int)map(lightData, 200, 1000, 0, frequency.length)]+" "+
-        punctuation[(int)map(lightData, 200, 1000, 0, punctuation.length)], 
-      10, timeData*5);
+    if ((time > ptime+5) || (time < ptime-5)) {
+      fill(150, time*4, 255);
+      text(articles[(int)map(sensor, 200, 1000, 0, articles.length)]+" "+
+        nouns[(int)map(sensor, 200, 1000, 0, nouns.length)]+" "+
+        action[(int)map(sensor, 200, 1000, 0, action.length)]+" "+
+        verb[(int)map(sensor, 200, 1000, 0, verb.length)]+" "+
+        location[(int)map(sensor, 200, 1000, 0, location.length)]+" "+
+        articles[(int)map(sensor, 200, 1000, 0, articles.length)]+" "+
+        nouns2[(int)map(sensor, 200, 1000, 0, nouns2.length)]+" "+
+        frequency[(int)map(sensor, 200, 1000, 0, frequency.length)]+" "+
+        punctuation[(int)map(sensor, 200, 1000, 0, punctuation.length)], 
+      10, time*5);
     }
-    ptimeData=timeData;
+    ptime=time;
   }
 }
 
-void draw() {
-}
 
