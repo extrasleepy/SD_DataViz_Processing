@@ -27,16 +27,19 @@ void setup() {
     noFill();
 
     if ((sensorScaled > pSensorData+40) || (sensorScaled < pSensorData-40)) {   //keeps data from being redundant
+      x=timeScaled;
+      y=sensorScaled;
+
       stroke(255, 100, 0, 255);
       strokeWeight(2);
-      vertex(timeScaled, sensorScaled);              //point determined by CSV data
+      
+      vertex(x, y);              //point determined by CSV data
       fill(0, 10, 80);                              //ellipse fill color
-      ellipse(timeScaled, sensorScaled, 100, 100);  //ellipse for visual effect
+      ellipse(x, y, 100, 100);  //ellipse for visual effect
       fill(255);                                    //text color
       textAlign(CENTER);
       textSize(20);
-      text(room, timeScaled, sensorScaled);
-      
+      text(room, x, y);
     }
     pSensorData=sensorScaled;    //saves current data to compare with next data
   }
