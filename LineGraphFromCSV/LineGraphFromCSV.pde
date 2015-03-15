@@ -3,62 +3,45 @@
 
 Table table;
 float x, y;
-float plightData;
-int grow;
+float pSensorData;
 
 void setup() {
   size(800, 600);
-  background(0, 55, 100);
-  frameRate(30);
-  table = loadTable("light.csv", "header");    //make sure to change name to match your data file
+  background(0, 20, 100);
+
+  table = loadTable("light.csv");
   println(table.getRowCount() + " total rows in table"); 
-}
 
-void draw() {
-  background(0, 80, 100);
-  beginShape();
-  for (TableRow row : table.rows ()) {
+  beginShape();    //line graph starts here
 
-    float timeData = row.getInt("Time");
-    float lightData = row.getInt("Light");
-    String roomData = row.getString("Room");
+    for (TableRow row : table.rows ()) {
 
-    timeData=map(timeData, 10, 80, 0, width);
-    lightData=map(lightData, 200, 1000, height, 0);
+    float time = row.getFloat(0);            //define parameter = column 
+    float sensor = row.getFloat(1);          //define parameter = column
+    String room = row.getString(2);          //define parameter = column  
 
-    println(timeData, " ", lightData, " ", roomData);
+    float timeScaled=map(time, 7, 80, 0, width);
+    float sensorScaled=map(sensor, 200, 1000, height, 0);
 
-    fill(255,10);
-    stroke(255,255,0,100);
-    strokeWeight(5);
-    vertex(timeData, lightData);  //size determined by CSV data
-    
-    stroke(255,100,0,100);
-    strokeWeight(3);
-    ellipse(timeData, lightData, (height/lightData)*grow, (height/lightData)*grow);
+    println(time, " ", sensor, " ", room);
+    noFill();
 
-    if ((lightData > plightData+10) || (lightData < plightData-10)) {
-      fill(255);
+    if ((sensorScaled > pSensorData+40) || (sensorScaled < pSensorData-40)) {   //keeps data from being redundant
+      stroke(255, 100, 0, 255);
+      strokeWeight(2);
+      vertex(timeScaled, sensorScaled);              //point determined by CSV data
+      fill(0, 10, 80);                              //ellipse fill color
+      ellipse(timeScaled, sensorScaled, 100, 100);  //ellipse for visual effect
+      fill(255);                                    //text color
       textAlign(CENTER);
       textSize(20);
-      text(roomData, timeData, lightData);
+      text(room, timeScaled, sensorScaled);
+      
     }
-    plightData=lightData;
+    pSensorData=sensorScaled;    //saves current data to compare with next data
   }
-  
-  endShape();
-  
-  if ((grow==0) || (grow==30)){
-  grow=-grow;
-  delay(1000);
-  
-}
-grow+=1;
-}
-
-void delay(int delay)
-{
-  int time = millis();
-  while(millis() - time <= delay);
+  endShape();    //line graph ends here
+  textSize(30);
+  text("Room Luminosity", 200, height-50);    //Visualization Title
 }
 
