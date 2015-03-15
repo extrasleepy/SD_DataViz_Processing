@@ -1,8 +1,6 @@
 import processing.dxf.*;
 
-
 Table table;
-
 
 float x =0;
 float y =0;
@@ -14,17 +12,17 @@ void setup() {
   fill(204,120);
   background(0);
 
-  table = loadTable("data.csv", "header");
+  table = loadTable("data.csv");
   beginRaw(DXF, "output.dxf");
   ambientLight(20, 102, 102);
   directionalLight(126, 126, 126, 0, 0, -1);
   
   for (TableRow row : table.rows ()) {
 
-    int id = row.getInt("diameter");
-    String name = row.getString("name");
+    float sensor = row.getFloat(0);
+    float sensorScaled = map(sensor, 40, 30000, 50,130);
 
-    println(name + " has an ID of " + id);
+    println(sensor);
 
     x = randomGaussian();
     y = randomGaussian();
@@ -44,12 +42,10 @@ void setup() {
     translate(x, y, z);
     rotateX(-0.5);
     rotateY(1);
-    sphere(id/200);
+    sphere(sensorScaled);
     popMatrix();
   }
 
   endRaw();
 }
 
-void draw() {
-}
