@@ -26,7 +26,8 @@ void setup() {
     //-----scale the data-----
 
     float timeScaled = map(time, 0, 50, 0, 255); 
-    float sensorScaled = map(sensor, 40, 30000, 10,(width/table.getRowCount())*2);
+    float sensorScaled = map(sensor, 40, 30000, 10,180);
+    //float sensorScaled = map(sensor, 40, 30000, 10,(width/table.getRowCount())*2);
     println(timeScaled, ",", sensorScaled);
 
     //------draw the data------  
