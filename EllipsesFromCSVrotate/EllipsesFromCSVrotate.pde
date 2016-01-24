@@ -10,12 +10,12 @@ float angle = 0;
 void setup() {
 
   size(800, 800);
-  background(0);
+  background(50);
   translate(width/2, height/2);
 
 
   table = loadTable("data.csv");    //make sure to change name to match your data file, header is optional
-  angle = TWO_PI/(table.getRowCount()-1);   //set rotation angle, TW0_PI is a full circle
+  angle = TWO_PI/(table.getRowCount());   //set rotation angle, TW0_PI is a full circle
 
   println(table.getRowCount() + " total rows in table"); 
 
@@ -42,10 +42,10 @@ void setup() {
 
     ellipse(x-radius, y, sensorScaled, sensorScaled);  //size determined by CSV data
 
+    fill(255, 255);
     textAlign(CENTER);
     text((int)sensor, x-radius, y);  //printing as int to avoid decimal places
 
     rotate(angle);
   }
 }
-
