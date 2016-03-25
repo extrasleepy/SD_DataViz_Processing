@@ -41,10 +41,12 @@ void setup() {
     fill(255, timeScaled);     //fill color, transparency determined by time
 
     ellipse(x-radius, y, sensorScaled, sensorScaled);  //size determined by CSV data
+    //ellipse(x, y-radius, sensorScaled, sensorScaled);  //first ellipse at top of screen
 
     fill(255, 255);
     textAlign(CENTER);
     text((int)sensor, x-radius, y);  //printing as int to avoid decimal places
+    //text((int)sensor, x, y-radius);  //printing as int to avoid decimal places
 
     rotate(angle);
   }
